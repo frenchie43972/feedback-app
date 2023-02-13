@@ -2,19 +2,27 @@ import { useState, useContext, useEffect } from "react";
 import FeedbackContext from "../context/FeedbackContext";
 
 function RatingSelect({select}) {
+    // Declared the state variables for ratings and set the default to 5
     const [selected, setSelected] = useState(5);
 
+    // Access the feedbackEdit object from FeedbackContext
     const {feedbackEdit} = useContext(FeedbackContext);
 
+    // Uses the useEffect hook to update the selected rating when edit and updates the feedbackEdit object
     useEffect(() => {
         setSelected(feedbackEdit.item.rating);
     }, [feedbackEdit]);
 
+    // This event handler uses its parts to extract the selected 
+    // rating and convert it in to a numerical value. The '+' 
+    // operator ensures the selected value is treated as a 
+    // number
     const handleChange = (event) => {
         setSelected(+event.currentTarget.value);
         select(+event.currentTarget.value);
     };
 
+    // Keeps the styled radio buttons at 5
   return (
     <ul className="rating">
         <li>
